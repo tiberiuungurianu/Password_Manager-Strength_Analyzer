@@ -1,0 +1,97 @@
+﻿@model draft1_cw2.Models.UserProfileViewModel
+
+@{
+    ViewData["Title"] = "User Profile";
+}
+
+<h2>User Profile & Settings</h2>
+
+@if (ViewBag.StatusMessage != null)
+{
+    <div class="alert alert-success">
+        @ViewBag.StatusMessage
+    </div>
+}
+
+@using (Html.BeginForm("Profile", "Account", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.UserName)
+        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.UserName)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email)
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Email)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.FirstName)
+        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.FirstName)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.LastName)
+        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.LastName)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.PhoneNumber)
+        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.PhoneNumber)
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">Update Profile</button>
+}
+
+<hr />
+
+<!-- Section for Changing Password -->
+<div>
+    <h3>Change Password</h3>
+    <p>
+        <a class="btn btn-secondary" href="@Url.Action("ChangePassword", "Account")">
+            Change Your Password
+        </a>
+    </p>
+</div>
+
+<hr />
+
+<h3>Multi-Factor Authentication (MFA)</h3>
+@if (Model.IsMfaEnabled)
+{
+    <p>MFA is currently enabled on your account.</p>
+    @using (Html.BeginForm("DisableMfa", "Account", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-secondary">Disable MFA</button>
+    }
+}
+else
+{
+    <p>MFA is currently disabled.</p>
+    <p>
+        <a class="btn btn-secondary" href="@Url.Action("AddPhoneNumber", "Account")">
+            Enable MFA via SMS
+        </a>
+    </p>
+}
+
+<!-- Role-Based Settings (Admin Only) -->
+@if (Model.IsAdmin)
+{
+    <div>
+        <h3>Admin Settings</h3>
+        <p>Here are some settings only available to administrators.</p>
+        <!-- Add any additional admin-specific controls or links here -->
+    </div>
+}
