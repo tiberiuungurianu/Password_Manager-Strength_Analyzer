@@ -1,0 +1,17 @@
+﻿@model draft1_cw2.Models.AddPhoneNumberViewModel
+
+<h2>Add Phone Number</h2>
+
+@using (Html.BeginForm("AddPhoneNumber", "Account", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.PhoneNumber)
+        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.PhoneNumber)
+    </div>
+
+    <button type="submit" class="btn btn-primary">Send Verification Code</button>
+}

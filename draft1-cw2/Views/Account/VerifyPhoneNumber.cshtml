@@ -1,0 +1,29 @@
+﻿@model draft1_cw2.Models.VerifyPhoneNumberViewModel
+
+<h2>Verify Phone Number</h2>
+
+@if (TempData["DemoCode"] != null)
+{
+    <div class="alert alert-info">
+        (Demo) Your code is: @TempData["DemoCode"]
+    </div>
+}
+
+<!-- Show validation errors -->
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+@using (Html.BeginForm("VerifyPhoneNumber", "Account", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <!-- Include the PhoneNumber as a hidden field so it is posted back -->
+    @Html.HiddenFor(m => m.PhoneNumber)
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Code)
+        @Html.TextBoxFor(m => m.Code, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Code)
+    </div>
+
+    <button type="submit" class="btn btn-primary">Verify</button>
+}
