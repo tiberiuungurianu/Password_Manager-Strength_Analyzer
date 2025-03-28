@@ -1,22 +1,21 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using draft1_cw2.Models;
-using draft1_cw2.Data;
-using Microsoft.Extensions.DependencyInjection; // Add this using directive
+using draft1_cw2.Models; // Adjust this namespace based on your project structure
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add database context
+// Add services to the container.
+builder.Services.AddControllersWithViews();
+
+// Configure Entity Framework with SQL Server.
+// Make sure "DefaultConnection" exists in your appsettings.json.
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Add Identity services
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
-    .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>();
-
-// Add controllers with views
-builder.Services.AddControllersWithViews();
+// Configure Identity with ApplicationUser and roles.
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
 
 var app = builder.Build();
 
@@ -24,6 +23,7 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
+    // The default HSTS value is 30 days.
     app.UseHsts();
 }
 
@@ -32,7 +32,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication(); // Ensure Authentication is used before Authorization
+// Enable authentication and authorization middleware.
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

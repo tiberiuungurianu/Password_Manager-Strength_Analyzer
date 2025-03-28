@@ -1,0 +1,41 @@
+@model UserProfileViewModel
+
+<h2>Profile Settings</h2>
+
+<form asp-action="UpdateProfile">
+    <input type="hidden" asp-for="Id" />
+    <label>Full Name:</label>
+    <input asp-for="FullName" />
+    
+    <label>Preferences:</label>
+    <input asp-for="Preferences" />
+    
+    <button type="submit">Save Changes</button>
+</form>
+
+<form asp-action="ChangePassword" method="post">
+    <label>Current Password:</label>
+    <input asp-for="CurrentPassword" type="password" />
+    
+    <label>New Password:</label>
+    <input asp-for="NewPassword" type="password" />
+    
+    <label>Confirm New Password:</label>
+    <input asp-for="ConfirmPassword" type="password" />
+    
+    <button type="submit">Change Password</button>
+</form>
+
+<form asp-action="ToggleMfa" method="post">
+    <input type="hidden" name="enable" value="@(!Model.IsMfaEnabled)" />
+    <button type="submit">
+        @(Model.IsMfaEnabled ? "Disable MFA" : "Enable MFA")
+    </button>
+</form>
+
+@if (Model.IsAdmin)
+{
+    <h3>Admin Settings</h3>
+    <a href="/Admin/UserManagement">Manage Users</a>
+    <a href="/Admin/SystemSettings">System Settings</a>
+}

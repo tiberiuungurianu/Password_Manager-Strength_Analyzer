@@ -7,4 +7,12 @@
     <RootNamespace>draft1_cw2</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Remove="Views\Profile\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Profile\Index.cshtml" />
+  </ItemGroup>
+
 </Project>

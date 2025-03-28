@@ -1,0 +1,58 @@
+﻿<h2>@ViewData["Title"]</h2>
+@{
+    ViewData["Title"] = "Password Manager and Strength Analyzer";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+
+
+<div class="container">
+    <section>
+        <h3>1. Home Page (Dashboard)</h3>
+        <ul>
+            <li>Overview of stored passwords</li>
+            <li>Security alerts (e.g., weak passwords, reuse warnings)</li>
+            <li>Recent login activity</li>
+            <li>Quick links to important features</li>
+        </ul>
+    </section>
+
+    <section>
+        <h3>2. Password Manager Page</h3>
+        <ul>
+            <li>View, add, edit, and delete stored passwords</li>
+            <li>Password strength analysis for new entries</li>
+            <li>Search and filter options</li>
+        </ul>
+    </section>
+
+    <section>
+        <h3>3. User Profile &amp; Settings Page</h3>
+        <ul>
+            <li>Manage user details (name, email, preferences)</li>
+            <li>Change password and enable/disable MFA</li>
+            <li>Role-based settings (for Admins &amp; Users)</li>
+        </ul>
+    </section>
+
+    <section>
+        <h3>4. Admin Panel (For Admins Only)</h3>
+        <ul>
+            <li>Manage users and roles</li>
+            <li>View security logs and password strength trends</li>
+            <li>Modify password policies</li>
+        </ul>
+    </section>
+
+    <section>
+        <h3>5. Adaptive Security &amp; Behavioural Analysis</h3>
+        <p>
+            Implement real-time risk assessment based on user behaviour:
+        </p>
+        <ul>
+            <li>If login behaviour is unusual (new device, location, IP), require extra authentication</li>
+            <li>Detect suspicious password manager access (e.g., bulk exporting passwords)</li>
+            <li>Auto-lock accounts when potential credential stuffing is detected</li>
+        </ul>
+    </section>
+</div>
